@@ -1,7 +1,7 @@
 //
 //  ViewController.m
 //  MHButton
-//
+//  https://github.com/huazaiCee/MHButton
 //  Created by hua on 15/8/15.
 //  Copyright (c) 2015年 MHCompany. All rights reserved.
 //
@@ -17,19 +17,31 @@ typedef NS_ENUM(NSInteger, MHTableViewType) {
     MHTableViewTypeButtonContentStyle
 };
 
-typedef NS_ENUM(NSInteger, MHToolbarType) {
-    MHToolbarTypeDefault,
-    MHToolbarTypeClass
-};
-
 @interface ViewController () <MHToolbarDelegate, UIAlertViewDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) MHToolbar *toolbar;
 @property (nonatomic, strong) MHToolbar *demoToolbar;
 @property (nonatomic, strong) NSArray *buttonTypeArray;
 @property (nonatomic, strong) NSArray *buttonStyleArray;
+@property (nonatomic, strong) NSArray *titlesArray;
+@property (nonatomic, strong) NSArray *imagesArray;
+@property (nonatomic, strong) NSArray *demoTitlesArray;
 @end
 
 @implementation ViewController
+
+- (NSArray *)titlesArray {
+    if (!_titlesArray) {
+        _titlesArray = [NSArray arrayWithObjects:@"语音", @"视频", @"广告", @"百度", nil];
+    }
+    return _titlesArray;
+}
+
+- (NSArray *)imagesArray {
+    if (!_imagesArray) {
+        _imagesArray = [NSArray arrayWithObjects:@"consult_voice_icon_cur", @"consult_voice_icon_cur", @"consult_voice_icon_cur", @"consult_voice_icon_cur",nil];
+    }
+    return _imagesArray;
+}
 
 - (NSArray *)buttonTypeArray {
     if (!_buttonTypeArray) {
@@ -45,23 +57,24 @@ typedef NS_ENUM(NSInteger, MHToolbarType) {
     return _buttonStyleArray;
 }
 
+- (NSArray *)demoTitlesArray {
+    if (!_demoTitlesArray) {
+        _demoTitlesArray = [NSArray arrayWithObjects:@"按钮内容类型", @"按钮内容样式", nil];
+    }
+    return _demoTitlesArray;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"自定义按钮工具条";
+    self.title = @"自定义按钮标签栏";
     self.view.backgroundColor = MHColor(121, 141, 116);
     [self setupToolbar];
     [self setupTableView];
 }
 
 - (void)setupToolbar {
-    _toolbar = [self setupToolbarWithCount:4 y:120 contentType:MHButtonContentTypeDefault toolbarType:MHToolbarTypeDefault];
-    _demoToolbar = [self setupToolbarWithCount:2 y:200 contentType:MHButtonContentTypeOnlyTitleLabel toolbarType:MHToolbarTypeClass];
-    for (UIButton *btn in self.demoToolbar.subviews) {
-        [btn setTitle:@"按钮内容类型" forState:UIControlStateNormal];
-        if (btn.tag == 1) {
-            [btn setTitle:@"按钮内容样式" forState:UIControlStateNormal];
-        }
-    }
+    _toolbar = [self setupToolbarWithTitlesArray:self.titlesArray imagesArray:self.imagesArray y:120 contentType:MHButtonContentTypeDefault];
+    _demoToolbar = [self setupToolbarWithTitlesArray:self.demoTitlesArray imagesArray:nil y:200 contentType:MHButtonContentTypeOnlyTitleLabel];
 }
 
 - (void)setupTableView {
@@ -80,17 +93,16 @@ typedef NS_ENUM(NSInteger, MHToolbarType) {
     return myTableView;
 }
 
-- (MHToolbar *)setupToolbarWithCount:(int)count y:(CGFloat)y contentType:(MHButtonContentType)contenType toolbarType:(MHToolbarType)toolbarType{
-    MHToolbar *toolbar = [[MHToolbar alloc] initWithFrame:CGRectMake(0, y, KScreenW, kToolbarHeight) contentType:contenType contentStyle:MHButtonContentStyleDefault titleLabelScale:0.6f border:3 midBorder:1 tabCount:count];
+- (MHToolbar *)setupToolbarWithTitlesArray:(NSArray *)titlesArray imagesArray:(NSArray *)imagesArray y:(CGFloat)y contentType:(MHButtonContentType)contenType {
+    MHToolbar *toolbar = [[MHToolbar alloc] initWithFrame:CGRectMake(0, y, KScreenW, kToolbarHeight) contentType:contenType contentStyle:MHButtonContentStyleDefault titleLabelScale:0.6f border:3 midBorder:1 titlesArray:titlesArray imagesArray:imagesArray];
     toolbar.delegate = self;
-    toolbar.tag = toolbarType;
     toolbar.backgroundColor = MHColor_(250);
     [self.view addSubview:toolbar];
     return toolbar;
 }
 
-- (MHToolbar *)setupToolbarWithCount:(int)count y:(CGFloat)y contentStyle:(MHButtonContentStyle)contenStyle {
-    MHToolbar *toolbar = [[MHToolbar alloc] initWithFrame:CGRectMake(0, y, KScreenW, kToolbarHeight) contentType:MHButtonContentTypeDefault contentStyle:contenStyle titleLabelScale:0.6f border:3 midBorder:1 tabCount:count];
+- (MHToolbar *)setupToolbarWithTitlesArray:(NSArray *)titlesArray imagesArray:(NSArray *)imagesArray y:(CGFloat)y contentStyle:(MHButtonContentStyle)contenStyle {
+    MHToolbar *toolbar = [[MHToolbar alloc] initWithFrame:CGRectMake(0, y, KScreenW, kToolbarHeight) contentType:MHButtonContentTypeDefault contentStyle:contenStyle titleLabelScale:0.6f border:3 midBorder:1 titlesArray:titlesArray imagesArray:imagesArray];
     toolbar.delegate = self;
     toolbar.backgroundColor = MHColor_(250);
     [self.view addSubview:toolbar];
@@ -100,26 +112,6 @@ typedef NS_ENUM(NSInteger, MHToolbarType) {
 #pragma mark MHToolbarDelegate
 - (void)toolbar:(MHToolbar *)toolbar didClickButton:(UIButton *)button {
     NSLog(@"第%ld个按钮被点击了", (long)button.tag);
-    if (toolbar.tag == MHToolbarTypeDefault) {
-        [self showAlert];
-    }
-}
-
-- (void)showAlert {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"请输入要修改的标签个数" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"修改", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    UITextField *field = [alert textFieldAtIndex:0];
-    field.keyboardType = UIKeyboardTypeNumberPad;
-    [alert show];
-}
-
-#pragma mark UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (!buttonIndex) return;
-    UITextField *field = [alertView textFieldAtIndex:0];
-    if (![field.text intValue]) return;
-    [self.toolbar removeFromSuperview];
-    [self setupToolbarWithCount:[field.text intValue] y:120 contentType:MHButtonContentTypeDefault toolbarType:MHToolbarTypeDefault];
 }
 
 #pragma mark - UITableViewDataSource
@@ -151,9 +143,9 @@ typedef NS_ENUM(NSInteger, MHToolbarType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView.tag == MHTableViewTypeButtonContentType) {
-        [self setupToolbarWithCount:4 y:120 contentType:indexPath.row toolbarType:MHToolbarTypeDefault];
+        [self setupToolbarWithTitlesArray:self.titlesArray imagesArray:self.imagesArray y:120 contentType:indexPath.row];
     } else {
-        [self setupToolbarWithCount:4 y:120 contentStyle:indexPath.row];
+        [self setupToolbarWithTitlesArray:self.titlesArray imagesArray:self.imagesArray y:120 contentStyle:indexPath.row];
     }
 }
 

@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, MHButtonContentStyle) {
 - (instancetype)initWithContentType:(MHButtonContentType)contentType          // 按钮的内容类型
                        contentStyle:(MHButtonContentStyle)contentStyle        // 按钮的内容布局样式
                     titleLabelScale:(CGFloat)titleLabelScale                  // 按钮上面titleLabel所占比例
-                             border:(CGFloat)border                           // 按钮四周与内容控件的边角距离
+                             border:(CGFloat)border                           // 按钮四周与内容控件的边界距离
                           midBorder:(CGFloat)midBorder;                       // 按钮内部titleLabel与imageView之间的间距
 
 @end

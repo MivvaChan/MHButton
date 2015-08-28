@@ -428,6 +428,7 @@
 				85ECE1A71B7F2008004C9BBE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		85ECE1A81B7F2008004C9BBE /* Build configuration list for PBXNativeTarget "MHButtonTests" */ = {
 			isa = XCConfigurationList;
@@ -436,6 +437,7 @@
 				85ECE1AA1B7F2008004C9BBE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

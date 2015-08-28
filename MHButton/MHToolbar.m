@@ -16,10 +16,11 @@
               titleLabelScale:(CGFloat)titleLabelScale
                        border:(CGFloat)border
                     midBorder:(CGFloat)midBorder
-                     tabCount:(CGFloat)tabCount
+                  titlesArray:(NSArray *)titlesArray
+                  imagesArray:(NSArray *)imagesArray
 {
     if (self = [super initWithFrame:frame]) {
-        [self setupButtonsWithContentType:contentType contentStyle:contentStyle Width:frame.size.width titleLabelScale:titleLabelScale border:border midBorder:midBorder tabCount:tabCount];
+        [self setupButtonsWithContentType:contentType contentStyle:contentStyle width:frame.size.width titleLabelScale:titleLabelScale border:border midBorder:midBorder titlesArray:titlesArray imagesArray:imagesArray];
     }
     
     return self;
@@ -27,20 +28,21 @@
 
 - (void)setupButtonsWithContentType:(MHButtonContentType)contentType
                        contentStyle:(MHButtonContentStyle)contentStyle
-                              Width:(CGFloat)width
+                              width:(CGFloat)width
                     titleLabelScale:(CGFloat)titleLabelScale
                              border:(CGFloat)border
                           midBorder:(CGFloat)midBorder
-                           tabCount:(CGFloat)tabCount
+                        titlesArray:(NSArray *)titlesArray
+                        imagesArray:(NSArray *)imagesArray
 {
-    for (int i = 0; i < tabCount; i++) {
+    for (int i = 0; i < (titlesArray.count ? titlesArray.count : (imagesArray.count ? imagesArray.count : 0)); i++) {
         MHButton *btn = [[MHButton alloc] initWithContentType:contentType contentStyle:contentStyle titleLabelScale:titleLabelScale border:border midBorder:midBorder];
         btn.tag = i;
         btn.contentEdgeInsets = UIEdgeInsetsMake(kSpace, 0, kSpace, 0);
         btn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [btn setTitle:@"语音" forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:width/KScreenW *13.0f];
-        [btn setImage:[UIImage imageNamed:@"consult_voice_icon_cur"] forState:UIControlStateNormal];
+        [btn setTitle:(titlesArray.count ? titlesArray[i] : nil) forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:width/KScreenW * 13.0f];
+        [btn setImage:[UIImage imageNamed:(imagesArray.count ? imagesArray[i] : nil)] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         btn.layer.borderColor = MHColor_(164).CGColor;
         btn.layer.borderWidth = 0.3;
