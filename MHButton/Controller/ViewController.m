@@ -10,7 +10,7 @@
 #import "MHToolbar.h"
 #import "MHButton.h"
 
-#define kToolbarHeight (45)
+#define kToolbarHeight (60)
 
 typedef NS_ENUM(NSInteger, MHTableViewType) {
     MHTableViewTypeButtonContentType,
@@ -67,7 +67,6 @@ typedef NS_ENUM(NSInteger, MHTableViewType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"自定义按钮标签栏";
-    self.view.backgroundColor = MHColor(121, 141, 116);
     [self setupToolbar];
     [self setupTableView];
 }
@@ -87,7 +86,6 @@ typedef NS_ENUM(NSInteger, MHTableViewType) {
     myTableView.tag = tableViewType;
     myTableView.delegate = self;
     myTableView.dataSource = self;
-    myTableView.layer.borderColor = MHColor_(240).CGColor;
     myTableView.layer.borderWidth = 0.5f;
     [self.view addSubview:myTableView];
     return myTableView;
@@ -96,7 +94,7 @@ typedef NS_ENUM(NSInteger, MHTableViewType) {
 - (MHToolbar *)setupToolbarWithTitlesArray:(NSArray *)titlesArray imagesArray:(NSArray *)imagesArray y:(CGFloat)y contentType:(MHButtonContentType)contenType {
     MHToolbar *toolbar = [[MHToolbar alloc] initWithFrame:CGRectMake(0, y, KScreenW, kToolbarHeight) contentType:contenType contentStyle:MHButtonContentStyleDefault titleLabelScale:0.6f border:3 midBorder:1 titlesArray:titlesArray imagesArray:imagesArray];
     toolbar.delegate = self;
-    toolbar.backgroundColor = MHColor_(250);
+    toolbar.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:toolbar];
     return toolbar;
 }
@@ -104,7 +102,7 @@ typedef NS_ENUM(NSInteger, MHTableViewType) {
 - (MHToolbar *)setupToolbarWithTitlesArray:(NSArray *)titlesArray imagesArray:(NSArray *)imagesArray y:(CGFloat)y contentStyle:(MHButtonContentStyle)contenStyle {
     MHToolbar *toolbar = [[MHToolbar alloc] initWithFrame:CGRectMake(0, y, KScreenW, kToolbarHeight) contentType:MHButtonContentTypeDefault contentStyle:contenStyle titleLabelScale:0.6f border:3 midBorder:1 titlesArray:titlesArray imagesArray:imagesArray];
     toolbar.delegate = self;
-    toolbar.backgroundColor = MHColor_(250);
+    toolbar.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:toolbar];
     return toolbar;
 }
