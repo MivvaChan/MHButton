@@ -8,6 +8,12 @@
 
 #import "MHButton.h"
 
+@interface MHButton ()
+@property (nonatomic, assign) CGFloat titleLabelScale;  // titleLable相对imageView占整个内容视图的比例(例:如果titleLabel = 0.4,那么imageView的比例为0.6)
+@property (nonatomic, assign) CGFloat border;           // 最左侧控件的x值或y值\按钮四周与控件的边界距离
+@property (nonatomic, assign) CGFloat midBorder;        // titleLabel和imageView两个控件之间的间距
+@end
+
 @implementation MHButton
 
 - (instancetype)initWithContentType:(MHButtonContentType)contentType
@@ -25,7 +31,7 @@
         if (scale == 1) {
             self.midBorder = 0.0f;
         }
-   }
+    }
     return self;
 }
 
@@ -49,10 +55,10 @@
         }
             break;
         case MHButtonContentTypeOnlyImageView: {
-            CGFloat imageY = kSpace;
-            CGFloat imageX = 0;
-            CGFloat imageH = contentRect.size.height;
-            CGFloat imageW = contentRect.size.width;
+            CGFloat imageY = self.midBorder;
+            CGFloat imageX = self.border;
+            CGFloat imageH = contentRect.size.height - 2*self.midBorder;
+            CGFloat imageW = contentRect.size.width - 2*self.border;
             return CGRectMake(imageX, imageY, imageW, imageH);
         }
             break;
@@ -61,7 +67,7 @@
                 case MHButtonContentStyleDefault: {
                     CGFloat imageY = self.border + kSpace;
                     CGFloat imageW = (contentRect.size.width - self.border*2 - self.midBorder) * (1 - self.titleLabelScale);
-                    CGFloat imageH = contentRect.size.height - self.border*2 - self.midBorder;
+                    CGFloat imageH = contentRect.size.height - self.border*2;
                     CGFloat imageX = self.border;
                     return CGRectMake(imageX, imageY, imageW, imageH);
                 }
@@ -69,7 +75,7 @@
                 case MHButtonContentStyleValue1: {
                     CGFloat imageY = self.border + kSpace;
                     CGFloat imageW = (contentRect.size.width - self.border*2 - self.midBorder) * (1 - self.titleLabelScale);
-                    CGFloat imageH = contentRect.size.height - self.border*2 - self.midBorder;
+                    CGFloat imageH = contentRect.size.height - self.border*2;
                     CGFloat imageX = self.border + self.midBorder + (contentRect.size.width - self.border*2 - self.midBorder) * self.titleLabelScale;
                     return CGRectMake(imageX, imageY, imageW, imageH);
                 }
@@ -111,10 +117,10 @@
 {
     switch (self.contentType) {
         case MHButtonContentTypeOnlyTitleLabel: {
-            CGFloat titleY = kSpace;
-            CGFloat titleX = 0;
-            CGFloat titleH = contentRect.size.height;
-            CGFloat titleW = contentRect.size.width;
+            CGFloat titleY = self.midBorder;
+            CGFloat titleX = self.border;
+            CGFloat titleH = contentRect.size.height - 2*self.midBorder;
+            CGFloat titleW = contentRect.size.width - 2*self.border;
             return CGRectMake(titleX, titleY, titleW, titleH);
         }
             break;
@@ -127,7 +133,7 @@
                 case MHButtonContentStyleValue1: {
                     CGFloat imageY = self.border + kSpace;
                     CGFloat imageW = (contentRect.size.width - self.border*2 - self.midBorder) * self.titleLabelScale;
-                    CGFloat imageH = contentRect.size.height - self.border*2 - self.midBorder;
+                    CGFloat imageH = contentRect.size.height - self.border*2;
                     CGFloat imageX = self.border;
                     return CGRectMake(imageX, imageY, imageW, imageH);
                 }
@@ -135,7 +141,7 @@
                 case MHButtonContentStyleDefault: {
                     CGFloat imageY = self.border + kSpace;
                     CGFloat imageW = (contentRect.size.width - self.border*2 - self.midBorder) * self.titleLabelScale;
-                    CGFloat imageH = contentRect.size.height - self.border*2 - self.midBorder;
+                    CGFloat imageH = contentRect.size.height - self.border*2;
                     CGFloat imageX = self.border + self.midBorder + (contentRect.size.width - self.border*2 - self.midBorder) * (1 - self.titleLabelScale);
                     return CGRectMake(imageX, imageY, imageW, imageH);
                 }

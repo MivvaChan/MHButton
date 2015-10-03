@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "6AFD8D3E79461CB708458E53F69902EBC47FD44D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "2F87EB24E4922B6B809FBACD58722F771D6A2CB9" : 0,
+    "6AFD8D3E79461CB708458E53F69902EBC47FD44D" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "ACC29F9D-8CAD-4964-B4AC-E898240ACFED",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "2F87EB24E4922B6B809FBACD58722F771D6A2CB9" : "",
+    "6AFD8D3E79461CB708458E53F69902EBC47FD44D" : "MHButton\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MHButton",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MHButton.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/huazaiCee\/MHPageScrView.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2F87EB24E4922B6B809FBACD58722F771D6A2CB9"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/huazaiCee\/MHButton.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6AFD8D3E79461CB708458E53F69902EBC47FD44D"
+    }
+  ]
+}

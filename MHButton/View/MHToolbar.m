@@ -8,7 +8,19 @@
 
 #import "MHToolbar.h"
 
+@interface MHToolbar ()
+@property (nonatomic, weak) MHButton *firstButton;
+@end
+
 @implementation MHToolbar
+
+- (instancetype)initWithFrame:(CGRect)frame titlesArray:(NSArray *)titlesArray {
+    return [self initWithFrame:frame contentType:MHButtonContentTypeOnlyTitleLabel contentStyle:MHButtonContentStyleDefault titleLabelScale:1.0f border:0 midBorder:0 titlesArray:titlesArray imagesArray:nil];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame imagesArray:(NSArray *)imagesArray {
+    return [self initWithFrame:frame contentType:MHButtonContentTypeOnlyImageView contentStyle:MHButtonContentStyleDefault titleLabelScale:0.0f border:0 midBorder:0 titlesArray:nil imagesArray:imagesArray];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
                   contentType:(MHButtonContentType)contentType
@@ -38,15 +50,41 @@
     for (int i = 0; i < (titlesArray.count ? titlesArray.count : (imagesArray.count ? imagesArray.count : 0)); i++) {
         MHButton *btn = [[MHButton alloc] initWithContentType:contentType contentStyle:contentStyle titleLabelScale:titleLabelScale border:border midBorder:midBorder];
         btn.tag = i;
+        btn.titleLabel.backgroundColor = [UIColor redColor];
+        btn.imageView.backgroundColor = [UIColor greenColor];
         btn.contentEdgeInsets = UIEdgeInsetsMake(kSpace, 0, kSpace, 0);
-        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [btn setTitle:(titlesArray.count ? titlesArray[i] : nil) forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:width/KScreenW * 13.0f];
+        btn.titleLabel.adjustsFontSizeToFitWidth = YES;
         [btn setImage:[UIImage imageNamed:(imagesArray.count ? imagesArray[i] : nil)] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-        btn.layer.borderColor = MHColor_(164).CGColor;
-        btn.layer.borderWidth = 0.3;
         [self addSubview:btn];
+        if (i == 0) {
+            self.firstButton = btn;
+        }
+    }
+}
+
+- (void)setLabelTextAlignment:(NSTextAlignment)labelTextAlignment {
+    for (UIButton *btn in self.subviews) {
+        btn.titleLabel.textAlignment = labelTextAlignment;
+    }
+}
+
+- (void)setLabelFont:(UIFont *)labelFont {
+    for (UIButton *btn in self.subviews) {
+        btn.titleLabel.font = labelFont;
+    }
+}
+
+- (void)setLabelColor:(UIColor *)labelColor {
+    for (UIButton *btn in self.subviews) {
+        btn.titleLabel.backgroundColor = labelColor;
+    }
+}
+
+- (void)setLabelTextColor:(UIColor *)labelTextColor {
+    for (UIButton *btn in self.subviews) {
+        [btn setTitleColor:labelTextColor forState:UIControlStateNormal];
     }
 }
 

@@ -73,7 +73,9 @@ typedef NS_ENUM(NSInteger, MHTableViewType) {
 
 - (void)setupToolbar {
     _toolbar = [self setupToolbarWithTitlesArray:self.titlesArray imagesArray:self.imagesArray y:120 contentType:MHButtonContentTypeDefault];
+    _toolbar.labelTextAlignment = NSTextAlignmentCenter;
     _demoToolbar = [self setupToolbarWithTitlesArray:self.demoTitlesArray imagesArray:nil y:200 contentType:MHButtonContentTypeOnlyTitleLabel];
+    _demoToolbar.labelTextAlignment = NSTextAlignmentCenter;
 }
 
 - (void)setupTableView {
@@ -94,6 +96,7 @@ typedef NS_ENUM(NSInteger, MHTableViewType) {
 - (MHToolbar *)setupToolbarWithTitlesArray:(NSArray *)titlesArray imagesArray:(NSArray *)imagesArray y:(CGFloat)y contentType:(MHButtonContentType)contenType {
     MHToolbar *toolbar = [[MHToolbar alloc] initWithFrame:CGRectMake(0, y, KScreenW, kToolbarHeight) contentType:contenType contentStyle:MHButtonContentStyleDefault titleLabelScale:0.6f border:3 midBorder:1 titlesArray:titlesArray imagesArray:imagesArray];
     toolbar.delegate = self;
+    toolbar.labelTextAlignment = NSTextAlignmentCenter;
     toolbar.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:toolbar];
     return toolbar;
@@ -102,6 +105,7 @@ typedef NS_ENUM(NSInteger, MHTableViewType) {
 - (MHToolbar *)setupToolbarWithTitlesArray:(NSArray *)titlesArray imagesArray:(NSArray *)imagesArray y:(CGFloat)y contentStyle:(MHButtonContentStyle)contenStyle {
     MHToolbar *toolbar = [[MHToolbar alloc] initWithFrame:CGRectMake(0, y, KScreenW, kToolbarHeight) contentType:MHButtonContentTypeDefault contentStyle:contenStyle titleLabelScale:0.6f border:3 midBorder:1 titlesArray:titlesArray imagesArray:imagesArray];
     toolbar.delegate = self;
+    toolbar.labelTextAlignment = NSTextAlignmentCenter;
     toolbar.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:toolbar];
     return toolbar;
